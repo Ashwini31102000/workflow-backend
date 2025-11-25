@@ -1,0 +1,23 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - 'workflow-backend/**'
+  pull_request:
+    paths:
+      - 'workflow-backend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workflow-backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm test --if-present
